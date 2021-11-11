@@ -32,11 +32,11 @@ class FunctionTimer {
     i_Function();
     m_u64End = TIMESTAMP;
 #ifdef ENABLE_VERBOSE
-    if(m_bVerbose) {
-      if(m_sName == nullptr) {
+    if (m_bVerbose) {
+      if (m_sName == nullptr) {
         std::cout << __PRETTY_FUNCTION__ << " " << getExecutionTimeNs() << " ns\n";
       } else {
-        std::cout << m_sName << " " << getExecutionTimeNs() << " ns\n";
+        std::cout << m_sName << ": " << getExecutionTimeNs() << " ns\n";
       }
     }
 #endif
@@ -51,11 +51,15 @@ class FunctionTimer {
   };
 
   explicit FunctionTimer(FunctionType i_Function) {
-      _timeit(i_Function);
-  }
+    _timeit(i_Function);
+  };
 
-  FunctionTimer(FunctionType i_Function, bool i_bVerbose): m_bVerbose(i_bVerbose) {
-      _timeit(i_Function);
+  FunctionTimer(FunctionType i_Function, bool i_bVerbose) : m_bVerbose(i_bVerbose) {
+    _timeit(i_Function);
+  };
+
+  FunctionTimer(const char* i_sName, FunctionType i_Function, bool i_bVerbose = true) : m_sName(i_sName), m_bVerbose(i_bVerbose) {
+    _timeit(i_Function);
   }
 
   uint64_t getExecutionTimeNs() const {

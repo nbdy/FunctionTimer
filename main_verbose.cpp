@@ -6,14 +6,17 @@
 #include "FunctionTimer.h"
 
 int main() {
-  FunctionTimer<void()> ft0([] {
-    std::cout << "abc" << 123 << 0.420 << std::endl;
-  }, true);
-  FunctionTimer<void()> ft1([] {
-    std::cout << "abc" << 123 << 0.420 << '\n';
-  }, true );
-  FunctionTimer<void()> ft2([] {
-    std::cout << "abc" << 123 << 0.420 << '\n' << std::flush;
-  }, true);
+  FunctionTimer<void()> ft0("cout endl", [] {
+        std::cout << "abc" << 42 << 0.666 << std::endl;
+      }, true);
+  FunctionTimer<void()> ft1("cout \\n", [] {
+        std::cout << "abc" << 42 << 0.666 << '\n';
+      }, true );
+  FunctionTimer<void()> ft2("cout \\n flush", [] {
+        std::cout << "abc" << 42 << 0.666 << '\n' << std::flush;
+      }, true);
+  FunctionTimer<void()> ft3("printf", [] {
+        printf("%s%i%.3f\n", "abc", 42, 0.666);
+      }, true);
   return 0;
 }
