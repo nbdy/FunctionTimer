@@ -21,10 +21,12 @@ int main() {
 ```
 outputs
 ```
-abc1230.42
-cout endl: 30475 ns
-abc1230.42
-cout \n: 1252 ns
-abc1230.42
-cout \n flush: 1021 ns
+abc420.666
+cout endl: 27990 ns
+abc420.666
+cout \n: 1292 ns
+abc420.666
+cout \n flush: 1032 ns
+abc420.666
+printf: 3306 ns
 ```
