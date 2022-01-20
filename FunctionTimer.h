@@ -5,10 +5,7 @@
 #ifndef TIMEDSECTION__FUNCTIONTIMER_H_
 #define TIMEDSECTION__FUNCTIONTIMER_H_
 
-#define ENDL '\n'
-// #define ENABLE_VERBOSE
-
-#ifdef ENABLE_VERBOSE
+#ifdef FUNCTION_TIMER_VERBOSE
 #include <iostream>
 #endif
 
@@ -23,7 +20,7 @@ class FunctionTimer {
   const char* m_sName = nullptr;
   uint64_t m_u64Start = 0U;
   uint64_t m_u64End = 0U;
-#ifdef ENABLE_VERBOSE
+#ifdef FUNCTION_TIMER_VERBOSE
   bool m_bVerbose = false;
 #endif
 
@@ -31,7 +28,7 @@ class FunctionTimer {
     m_u64Start = TIMESTAMP;
     i_Function();
     m_u64End = TIMESTAMP;
-#ifdef ENABLE_VERBOSE
+#ifdef FUNCTION_TIMER_VERBOSE
     if (m_bVerbose) {
       if (m_sName == nullptr) {
         std::cout << __PRETTY_FUNCTION__ << " " << getExecutionTimeNs() << " ns\n";
@@ -54,11 +51,20 @@ class FunctionTimer {
     _timeit(i_Function);
   };
 
-  FunctionTimer(FunctionType i_Function, bool i_bVerbose) : m_bVerbose(i_bVerbose) {
+  FunctionTimer(FunctionType i_Function, bool i_bVerbose)
+#ifdef FUNCTION_TIMER_VERBOSE
+      : m_bVerbose(i_bVerbose)
+#endif
+  {
     _timeit(i_Function);
   };
 
-  FunctionTimer(const char* i_sName, FunctionType i_Function, bool i_bVerbose = true) : m_sName(i_sName), m_bVerbose(i_bVerbose) {
+  FunctionTimer(const char* i_sName, FunctionType i_Function, bool i_bVerbose = true) : m_sName(i_sName)
+#ifdef FUNCTION_TIMER_VERBOSE
+    , m_bVerbose(i_bVerbose)
+#endif
+  {
+
     _timeit(i_Function);
   }
 
